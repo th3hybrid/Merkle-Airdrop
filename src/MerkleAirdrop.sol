@@ -7,7 +7,7 @@ import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProo
 contract MerkleAirdrop {
     using SafeERC20 for IERC20;
     error MerkleAirdrop__InvalidProof();
-    error MerkleAirdrop_AlreadyClaimed();
+    error MerkleAirdrop__AlreadyClaimed();
     //going to be using merkle proofs instead of looping through
     // massive loops which could make gas extortionate,hence dos(denial of service) attack
 
@@ -29,13 +29,13 @@ contract MerkleAirdrop {
         bytes32[] calldata merkleProof
     ) external {
         bytes32 leaf = keccak256(
-            bytes.concat(keccak256(abi.encodePacked(account, amount)))
+            bytes.concat(keccak256(abi.encode(account, amount)))
         );
         if (!MerkleProof.verify(merkleProof, i_merkleRoot, leaf)) {
             revert MerkleAirdrop__InvalidProof();
         }
         if (s_hasClaimed[account]) {
-            revert MerkleAirdrop_AlreadyClaimed();
+            revert MerkleAirdrop__AlreadyClaimed();
         }
 
         s_hasClaimed[account] = true;
