@@ -16,7 +16,7 @@ contract ClaimAirdrop is Script {
         0xe5ebd1e1b5a5478a944ecab36a9a954ac3b6b8216875f6524caa7a1d87096576;
     bytes32[] proof = [PROOF_ONE, PROOF_TWO];
     bytes private SIGNATURE =
-        hex"debf49c97f705412285218b40f72009f3ad05a2ebfe2a71080eaa49dedd7b3606847233ff9debeaf38126be53c907d9308b0e73ce0e051d0f8daa1ddcebe71041c";
+        hex"70c9b519302dcb430e0e0358dec645d45336376c86ce8084ebfc3e78bbd6e22367fb4fc3ec8246e000ef2726d4a9bcd115ebf95890036aa3ec62f2f831c532c31c";
 
     function claimAirdrop(address airdrop) public {
         vm.startBroadcast();
@@ -56,3 +56,6 @@ contract ClaimAirdrop is Script {
         claimAirdrop(mostRecentlyDeployed);
     }
 }
+
+//note without --broadcast in the cmd, it will only simulate sending the transaction on the blockchain without actually sending it
+//note when running script use the contract name rather than mixing it up with a function name
